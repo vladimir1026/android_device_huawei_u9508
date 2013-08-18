@@ -14,12 +14,13 @@
 
 #
 # This file is the build configuration for a full Android
-# build for sapphire hardware. This cleanly combines a set of 
+# build for crespo hardware. This cleanly combines a set of
 # device-specific aspects (drivers) with a device-agnostic
 # product configuration (apps).
 #
 
 # Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
@@ -27,8 +28,9 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 $(call inherit-product-if-exists, vendor/huawei/u9508/u9508-vendor.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/huawei/u9508/overlay
 
+
+DEVICE_PACKAGE_OVERLAYS += device/huawei/u9508/overlay
 
 
 # high-density artwork where available
@@ -167,4 +169,14 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product, build/target/product/full.mk)
 
 PRODUCT_DEVICE := u9508
-PRODUCT_NAME := full_u9508
+PRODUCT_NAME := u9508
+
+# Discard inherited values and use our own instead.
+PRODUCT_NAME := u9508
+PRODUCT_DEVICE := u9508
+PRODUCT_BRAND := Huawei
+PRODUCT_MANUFACTURER := huawei
+PRODUCT_MODEL := U9508
+
+# Set build fingerprint / ID / Product Name ect.
+PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=u9508 TARGET_DEVICE=u9508
